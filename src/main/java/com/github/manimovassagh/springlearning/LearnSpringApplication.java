@@ -2,7 +2,7 @@ package com.github.manimovassagh.springlearning;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-//check
+
 @SpringBootApplication
 public class LearnSpringApplication {
 
