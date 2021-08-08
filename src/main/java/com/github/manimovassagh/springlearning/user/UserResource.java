@@ -23,10 +23,12 @@ public class UserResource {
 
     }
 
+
     @GetMapping("/")
     public String justCheckHome(){
         return "Hi Mani Welcome to Your Website " ;
     }
+
 
     //Retrieve one User Get /users/{id}
     @GetMapping("users/{id}")
