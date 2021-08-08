@@ -2,12 +2,12 @@ package com.github.manimovassagh.springlearning.user;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.persistence.criteria.CriteriaBuilder;
+import java.net.URI;
 import java.util.List;
-
-import static com.github.manimovassagh.springlearning.user.UserDaoService.users;
 
 @RestController
 public class UserResource {
@@ -17,18 +17,31 @@ public class UserResource {
     //retrieve all Users   Get /users
     @GetMapping("/users")
     public List<User> findAllUsers() {
-                return service.findAllUsers();
+        return service.findAllUsers();
 
     }
+
     //Retrieve one User Get /users/{id}
     @GetMapping("users/{id}")
-    public User findOneUser(@PathVariable("id") Integer id){
+    public User findOneUser(@PathVariable("id") Integer id) {
         return service.findOneUser(id);
     }
 
-       //Add a User Post /users
+    //Add a User Post /users
     @PostMapping("/users")
-    public void addUser(@RequestBody User user){
-        service.addUser(user);
+    public ResponseEntity<Object> addUser(@RequestBody User user) {
+        User savedUser = service.addUser(user);
+      URI location= ServletUriComponentsBuilder.
+              fromCurrentRequest().
+              path("/{id}").
+              buildAndExpand(savedUser.getId()).toUri();
+        return ResponseEntity.created(location).build();
+    }
+
+    @DeleteMapping
+    public Integer deleteFromList(@PathVariable Integer id) {
+        service.deleteUser(id);
+        return id;
+
     }
 }

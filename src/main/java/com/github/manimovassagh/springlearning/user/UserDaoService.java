@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Component
 public class UserDaoService {
@@ -42,4 +43,10 @@ public class UserDaoService {
                users.add(user);
         return user;
     }
+
+    //Delete a User from List
+    public void deleteUser(Integer id){
+        Stream<User> userStream = users.stream().filter(user -> user.getId() != id);
+    }
+
 }
