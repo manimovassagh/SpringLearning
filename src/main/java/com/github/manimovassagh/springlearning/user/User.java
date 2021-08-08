@@ -2,6 +2,7 @@ package com.github.manimovassagh.springlearning.user;
 
 import java.util.Date;
 
+
 public class User {
     private Integer id;
     private String name;
