@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 
 @RestController
@@ -19,6 +20,11 @@ public class UserResource {
     public List<User> findAllUsers() {
         return service.findAllUsers();
 
+    }
+
+    @GetMapping("/")
+    public String justCheckHome(){
+        return "Hi Mani Welcome to Your Website " ;
     }
 
     //Retrieve one User Get /users/{id}
@@ -38,10 +44,13 @@ public class UserResource {
         return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping
-    public Integer deleteFromList(@PathVariable Integer id) {
-        service.deleteUser(id);
-        return id;
+    @DeleteMapping ("users/{id}")
+    public void deleteUser(@PathVariable("id") Integer id) throws UserPrincipalNotFoundException {
 
+        User deletedUser = service.deleteUser(id);
+        if(deletedUser==null){
+            throw new UserPrincipalNotFoundException("User Not Found Please Try with Valid User");
+        }
     }
+
 }
