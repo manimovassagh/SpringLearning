@@ -2,8 +2,14 @@ package com.github.manimovassagh.springlearning.user;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+
+
+@Entity 
 public class User {
+    @Id
     private Integer id;
     private String name;
     private Date birthDate;

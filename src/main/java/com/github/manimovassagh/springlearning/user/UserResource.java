@@ -7,9 +7,14 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.beans.JavaBean;
 import java.net.URI;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+
 
 @RestController
 public class UserResource {
@@ -36,6 +41,11 @@ public class UserResource {
         return service.findOneUser(id);
     }
 
+    @PostMapping("/users/{name}")
+    public String getSomeName(@RequestBody String name) {
+        return name;
+        
+    }
     //Add a User Post /users
     @PostMapping("/users")
     public ResponseEntity<Object> addUser(@RequestBody User user) {
